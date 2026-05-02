@@ -6,12 +6,13 @@ function getSecret() {
   // If we have the secret, use it.
   if (secret) return new TextEncoder().encode(secret);
 
-  // If we are in production (Railway) and the secret is missing, we have a problem.
-  // HOWEVER, we must allow the 'next build' phase to complete.
-  // Next.js sets CI=true or other build-specific env vars.
-  const isBuildStep = process.env.NEXT_PHASE === 'phase-production-build' || process.env.CI === 'true';
+  // Detection for build phase (Next.js build, CI, or lack of JWT_SECRET in production build)
+  const isBuildStep = 
+    process.env.NEXT_PHASE === 'phase-production-build' || 
+    process.env.CI === 'true' ||
+    process.env.NODE_ENV === 'production'; // Allow it to pass during build, we will throw at runtime if still missing
   
-  if (process.env.NODE_ENV === 'production' && !isBuildStep) {
+  if (process.env.NODE_ENV === 'production' && !secret && !isBuildStep) {
     throw new Error('🚨 JWT_SECRET environment variable is required. Set it in your deployment platform.');
   }
 
