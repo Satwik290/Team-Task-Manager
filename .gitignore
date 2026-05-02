@@ -1,0 +1,46 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Next.js build output
+.next/
+out/
+
+# Turbo output
+.turbo/
+
+# Build outputs
+dist/
+build/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Environmental variables
+.env
+.env*.local
+
+# Coverage
+coverage/
+
+# TypeScript
+*.tsbuildinfo
+
+# Database
+prisma/dev.db
+prisma/dev.db-journal
+
+# Custom Tools
+graphify/
+graphify-out/

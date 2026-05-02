@@ -1,0 +1,22 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@repo/db";
+
+export async function GET() {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    return NextResponse.json({
+      ok: true,
+      database: "reachable",
+      timestamp: new Date().toISOString()
+    });
+  } catch {
+    return NextResponse.json(
+      {
+        ok: false,
+        database: "unreachable",
+        timestamp: new Date().toISOString()
+      },
+      { status: 503 }
+    );
+  }
+}
