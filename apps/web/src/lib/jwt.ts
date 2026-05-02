@@ -1,7 +1,9 @@
 import { SignJWT, jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(
-  process.env.JWT_SECRET || "super-secret-key-change-this-in-production"
+  process.env.JWT_SECRET || (() => {
+    throw new Error('🚨 JWT_SECRET environment variable is required. Set it in your deployment platform.');
+  })()
 );
 
 export async function signJWT(payload: { userId: string; email: string; role: string }) {
